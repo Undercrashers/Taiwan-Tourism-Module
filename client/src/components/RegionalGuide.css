@@ -1,53 +1,72 @@
 .rg__layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 40px;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
   align-items: start;
+}
+
+.rg__map {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  position: sticky;
+  top: 100px;
 }
 
 .rg__map img {
   width: 100%;
-  border-radius: var(--radius);
+  height: auto;
+  border-radius: 8px;
+  display: block;
 }
 
 .rg__cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .rg__card {
   background: #fff;
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: 20px;
   cursor: pointer;
-  border: 2px solid var(--border);
+  border: 1.5px solid #e8e8e8;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  outline: none;
 }
 
 .rg__card:hover {
-  border-color: var(--rc);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--rc, #ccc);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
 
 .rg__card.active {
-  border-color: var(--rc);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--rc, #ccc);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.09);
+}
+
+.rg__card:focus-visible {
+  border-color: var(--rc, #ccc);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
 }
 
 .rg__card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .rg__card h3 {
-  font-size: 1rem;
-  font-family: var(--font-body);
+  font-size: 0.975rem;
   font-weight: 700;
+  color: #111;
+  margin: 0;
+  font-family: inherit;
 }
 
 .rg__dot {
@@ -58,39 +77,56 @@
 }
 
 .rg__summary {
-  font-size: 0.85rem;
-  color: var(--gray);
-  line-height: 1.5;
+  font-size: 0.83rem;
+  color: #6b7280;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .rg__attractions {
   margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  border-top: 1px solid var(--border);
+  gap: 9px;
+  border-top: 1px solid #f0f0f0;
   padding-top: 14px;
+  list-style: none;
+  padding-left: 0;
 }
 
 .rg__attractions li {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.82rem;
-  color: var(--gray);
-  line-height: 1.4;
+  font-size: 0.81rem;
+  color: #6b7280;
+  line-height: 1.45;
 }
 
-.rg__attractions img {
-  margin-top: 2px;
+.rg__pin-icon {
+  margin-top: 1px;
   flex-shrink: 0;
-  opacity: 0.5;
+  opacity: 0.55;
+  width: 14px;
+  height: 14px;
 }
 
-@media (max-width: 760px) {
+.rg__attractions strong {
+  color: #374151;
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
   .rg__layout {
     grid-template-columns: 1fr;
   }
+
+  .rg__map {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 520px) {
   .rg__cards {
     grid-template-columns: 1fr;
   }

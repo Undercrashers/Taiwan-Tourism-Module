@@ -12,7 +12,7 @@ const RegionSchema = new mongoose.Schema({
   name: String,
   color: String,
   summary: String,
-  attraction: [AttractionSchema],
+  attractions: [AttractionSchema],
 });
 
 module.exports = mongoose.model("Region", RegionSchema);

@@ -26,15 +26,13 @@ export default function PracticalInfo() {
   return (
     <section id="practical-info" aria-labelledby="pi-title">
       <div className="container">
-        <h2 id="pi-title" className="section-title fade-in">
+        <h2 id="pi-title" className="section-title">
           Practical Information
         </h2>
-        <p className="section-sub fade-in">
-          Pack the essentials—travel made simple.
-        </p>
+        <p className="section-sub">Pack the essentials—travel made simple.</p>
 
         <div
-          className="pi__tabs fade-in"
+          className="pi__tabs"
           role="tablist"
           aria-label="Practical information categories"
         >
@@ -51,7 +49,7 @@ export default function PracticalInfo() {
           ))}
         </div>
 
-        <div className="pi__content fade-in" role="tabpanel" aria-label={tab}>
+        <div className="pi__content" role="tabpanel" aria-label={tab}>
           {items.map((item, i) =>
             mobile ? (
               <div
@@ -81,7 +79,7 @@ export default function PracticalInfo() {
                 </div>
               </div>
             ) : (
-              <div key={item._id} className="pi__card fade-in">
+              <div key={item._id} className="pi__card ">
                 <img
                   src={item.icon}
                   alt=""

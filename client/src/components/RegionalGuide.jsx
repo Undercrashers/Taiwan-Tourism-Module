@@ -5,25 +5,80 @@ import "./RegionalGuide.css";
 export default function RegionalGuide() {
   const [regions, setRegions] = useState([]);
   const [active, setActive] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get("/api/regions").then((r) => setRegions(r.data));
+    axios
+      .get("/api/regions")
+      .then((r) => {
+        const normalized = (r.data ?? []).map((region) => ({
+          ...region,
+          attractions: region.attractions ?? region.attraction ?? [],
+        }));
+        setRegions(normalized);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch regions:", err);
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   const toggle = (key) => setActive((p) => (p === key ? null : key));
 
+  if (loading) {
+    return (
+      <section id="regional-guide" aria-labelledby="rg-title">
+        <div className="container">
+          <h2 id="rg-title" className="section-title">
+            Regional Guide
+          </h2>
+          <p className="section-sub">Loading regions...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="regional-guide" aria-labelledby="rg-title">
+        <div className="container">
+          <h2 id="rg-title" className="section-title">
+            Regional Guide
+          </h2>
+          <p className="section-sub" style={{ color: "red" }}>
+            Error loading regions: {error}
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (regions.length === 0) {
+    return (
+      <section id="regional-guide" aria-labelledby="rg-title">
+        <div className="container">
+          <h2 id="rg-title" className="section-title">
+            Regional Guide
+          </h2>
+          <p className="section-sub">No regions available</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="regional-guide" aria-labelledby="rg-title">
       <div className="container">
-        <h2 id="rg-title" className="section-title fade-in">
+        <h2 id="rg-title" className="section-title">
           Regional Guide
         </h2>
-        <p className="section-sub fade-in">
-          Click a region on the map to explore.
-        </p>
+        <p className="section-sub">Click a region on the map to explore.</p>
 
         <div className="rg__layout">
-          <div className="rg__map fade-in">
+          <div className="rg__map">
             <img
               src="/images/taiwan-map.svg"
               alt="Map of Taiwan showing four regions"
@@ -34,7 +89,7 @@ export default function RegionalGuide() {
             {regions.map((r) => (
               <article
                 key={r.key}
-                className={`rg__card fade-in${active === r.key ? " active" : ""}`}
+                className={`rg__card${active === r.key ? " active" : ""}`}
                 style={{ "--rc": r.color }}
                 onClick={() => toggle(r.key)}
                 tabIndex={0}
@@ -50,11 +105,12 @@ export default function RegionalGuide() {
                     aria-hidden="true"
                   />
                 </div>
+
                 <p className="rg__summary">{r.summary}</p>
 
                 {active === r.key && (
                   <ul className="rg__attractions">
-                    {r.attractions.map((a) => (
+                    {(r.attractions ?? []).map((a) => (
                       <li key={a.name}>
                         <img
                           src="/icons/icon-pin.svg"
@@ -62,6 +118,7 @@ export default function RegionalGuide() {
                           aria-hidden="true"
                           width="14"
                           height="14"
+                          className="rg__pin-icon"
                         />
                         <span>
                           <strong>{a.name}:</strong> {a.description}
