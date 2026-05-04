@@ -78,10 +78,6 @@ The frontend will run on `http://localhost:5173`
 - Check if `http://localhost:5000/api/regions` is accessible
 - Check browser console for network errors
 
-### Attractions not showing when clicking cards
-
-- Database hasn't been seeded properly
-- Run `npm run seed` again in the server directory
 
 ## Database Info
 

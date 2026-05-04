@@ -26,7 +26,29 @@ export default function RegionalGuide() {
       });
   }, []);
 
-  const toggle = (key) => setActive((p) => (p === key ? null : key));
+  const getRegionStyle = (key) => {
+    switch (key) {
+      case "north":
+        return { top: "5%", left: "15%", width: "65%", height: "28%" };
+      case "central":
+        return { top: "32%", left: "15%", width: "65%", height: "28%" };
+      case "south":
+        return { top: "58%", left: "15%", width: "65%", height: "35%" };
+      case "east":
+        return { top: "12%", left: "68%", width: "28%", height: "75%" };
+      default:
+        return {};
+    }
+  };
+
+  const toggle = (key) => {
+    setActive((p) => (p === key ? null : key));
+    setTimeout(() => {
+      document
+        .querySelector(`.rg__card[data-key="${key}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 50);
+  };
 
   if (loading) {
     return (
@@ -79,16 +101,33 @@ export default function RegionalGuide() {
 
         <div className="rg__layout">
           <div className="rg__map">
-            <img
-              src="/images/taiwan-map.svg"
-              alt="Map of Taiwan showing four regions"
-            />
+            <div className="rg__map-wrapper">
+              <img
+                src="/images/taiwan-map.svg"
+                alt="Map of Taiwan showing four regions"
+              />
+              <div className="rg__overlay">
+                {regions.map((r) => (
+                  <div
+                    key={r.key}
+                    className={`rg__region ${active === r.key ? "active" : ""}`}
+                    style={{
+                      ...getRegionStyle(r.key),
+                      "--rc": r.color,
+                    }}
+                    onClick={() => toggle(r.key)}
+                    title={r.name}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="rg__cards">
             {regions.map((r) => (
               <article
                 key={r.key}
+                data-key={r.key}
                 className={`rg__card${active === r.key ? " active" : ""}`}
                 style={{ "--rc": r.color }}
                 onClick={() => toggle(r.key)}

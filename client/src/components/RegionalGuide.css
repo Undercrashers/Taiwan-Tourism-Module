@@ -14,11 +14,38 @@
   top: 100px;
 }
 
-.rg__map img {
+.rg__map-wrapper {
+  position: relative;
+}
+
+.rg__map-wrapper img {
   width: 100%;
   height: auto;
   border-radius: 8px;
   display: block;
+}
+
+.rg__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.rg__region {
+  position: absolute;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  transition: 0.2s ease;
+}
+
+.rg__region:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.rg__region.active {
+  background: var(--rc);
+  opacity: 0.25;
+  box-shadow: 0 0 0 2px var(--rc);
 }
 
 .rg__cards {
