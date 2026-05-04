@@ -7,18 +7,10 @@ export default function RegionalGuide() {
   const [active, setActive] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("/api/regions")
-      .then((r) => {
-        console.log("Regions loaded:", r.data);
-        setRegions(r.data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch regions:", err);
-      });
+    axios.get("/api/regions").then((r) => setRegions(r.data));
   }, []);
 
-  const toggle = (key) => setActive((prev) => (prev === key ? null : key));
+  const toggle = (key) => setActive((p) => (p === key ? null : key));
 
   return (
     <section id="regional-guide" aria-labelledby="rg-title">
@@ -36,66 +28,50 @@ export default function RegionalGuide() {
               src="/images/taiwan-map.svg"
               alt="Map of Taiwan showing four regions"
             />
-            <div className="rg__map-btns">
-              {regions.map((r) => (
-                <button
-                  key={r.key}
-                  className={`rg__map-btn rg__map-btn--${r.key}${active === r.key ? " active" : ""}`}
-                  style={{ "--rc": r.color }}
-                  onClick={() => toggle(r.key)}
-                  aria-pressed={active === r.key}
-                  aria-label={`Explore ${r.name} Taiwan`}
-                >
-                  {r.name}
-                </button>
-              ))}
-            </div>
           </div>
-          <div className="rg__cards">
-            {regions.length === 0 ? (
-              <p>Loading regions...</p>
-            ) : (
-              regions.map((r) => (
-                <article
-                  key={r.key}
-                  className={`rg__card fade-in${
-                    active === r.key ? " active" : ""
-                  }`}
-                  style={{ "--rc": r.color }}
-                  onClick={() => toggle(r.key)}
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && toggle(r.key)}
-                  aria-expanded={active === r.key}
-                  aria-label={`${r.name} region`}
-                >
-                  <div className="rg__front">
-                    <span
-                      className="rg__dot"
-                      style={{ background: r.color }}
-                      aria-hidden="true"
-                    />
-                    <h3>{r.name}</h3>
-                    <p>{r.summary}</p>
-                    <span className="rg__hint">Click to see attractions</span>
-                  </div>
 
-                  <div className="rg__back" aria-hidden={active !== r.key}>
-                    <h4>Top Attractions</h4>
-                    <ul>
-                      {r.attraction && r.attraction.length > 0 ? (
-                        r.attraction.map((a) => (
-                          <li key={a.name}>
-                            <strong>{a.name}</strong> — {a.description}
-                          </li>
-                        ))
-                      ) : (
-                        <li>No attractions available</li>
-                      )}
-                    </ul>
-                  </div>
-                </article>
-              ))
-            )}
+          <div className="rg__cards">
+            {regions.map((r) => (
+              <article
+                key={r.key}
+                className={`rg__card fade-in${active === r.key ? " active" : ""}`}
+                style={{ "--rc": r.color }}
+                onClick={() => toggle(r.key)}
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && toggle(r.key)}
+                aria-expanded={active === r.key}
+                aria-label={`${r.name} region`}
+              >
+                <div className="rg__card-top">
+                  <h3>{r.name}</h3>
+                  <span
+                    className="rg__dot"
+                    style={{ background: r.color }}
+                    aria-hidden="true"
+                  />
+                </div>
+                <p className="rg__summary">{r.summary}</p>
+
+                {active === r.key && (
+                  <ul className="rg__attractions">
+                    {r.attractions.map((a) => (
+                      <li key={a.name}>
+                        <img
+                          src="/icons/icon-pin.svg"
+                          alt=""
+                          aria-hidden="true"
+                          width="14"
+                          height="14"
+                        />
+                        <span>
+                          <strong>{a.name}:</strong> {a.description}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
           </div>
         </div>
       </div>

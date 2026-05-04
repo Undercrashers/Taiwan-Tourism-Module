@@ -1,97 +1,95 @@
-/* 3 cards — first row 2 cols, download spans or sits below */
-.ei__grid {
+.ei__top {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.ei__grid > .ei__card:last-child {
-  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .ei__card {
   background: #fff;
   border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  padding: 24px;
+  border: 1px solid var(--border);
 }
 
 .ei__card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 18px;
-  font-family: var(--font-heading);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
-.ei__card--emergency {
-  border-top: 4px solid var(--red);
+.ei__card--qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ei__card--qr h3 {
+  justify-content: center;
 }
 
 .ei__list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
 }
-
 .ei__list li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  color: var(--gray);
-}
-
-.ei__list a {
-  color: var(--red);
-  transition: opacity 0.2s;
-}
-
-.ei__list a:hover {
-  opacity: 0.75;
-}
-
-.ei__tts {
-  display: flex;
-  flex-direction: column;
   gap: 8px;
-}
-
-.ei__tts-msg {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--gray);
+}
+.ei__list a {
+  color: var(--green);
 }
 
 .ei__emergency {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
-
 .ei__emergency li {
   display: flex;
   align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--gray);
+}
+
+.ei__download {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  font-size: 0.95rem;
+  gap: 24px;
+  text-align: center;
 }
 
-.ei__emergency strong {
-  font-size: 1.1rem;
+.ei__download h3 {
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  margin-bottom: 6px;
 }
-
-.ei__badge {
-  background: #fee2e2;
-  color: var(--red);
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.82rem;
-  font-weight: 600;
+.ei__download p {
+  color: var(--gray);
+  font-size: 0.88rem;
 }
 
 @media (max-width: 760px) {
-  .ei__grid {
+  .ei__top {
     grid-template-columns: 1fr;
   }
-  .ei__grid > .ei__card:last-child {
-    grid-column: 1;
+  .ei__download {
+    flex-direction: column;
   }
 }
