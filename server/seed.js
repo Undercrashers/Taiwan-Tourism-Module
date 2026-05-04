@@ -6,13 +6,13 @@ const connectDB = require('./db')
 const Region    = require('./models/Region')
 const InfoItem  = require('./models/InfoItem')
 
-// ── helper ────────────────────────────────────────────────────
+
 const readCSV = (filename) => parse(
   fs.readFileSync(path.join(__dirname, 'data', filename)),
   { columns: true, skip_empty_lines: true, trim: true }
 )
 
-// ── icon map: csv value → actual file path ────────────────────
+
 const iconMap = {
   '#i-train':    '/icons/icon-train.svg',
   '#i-landmark': '/icons/icon-landmark.svg',
@@ -26,12 +26,12 @@ const iconMap = {
 ;(async () => {
   await connectDB()
 
-  // ── read csvs ─────────────────────────────────────────────
+ 
   const regions     = readCSV('regions.csv')
   const attractions = readCSV('attractions.csv')
   const infoItems   = readCSV('info_items.csv')
 
-  // ── build region docs with embedded attractions ───────────
+  
   const regionDocs = regions.map(r => ({
     id:      Number(r.id),
     key:     r.key,
@@ -47,7 +47,7 @@ const iconMap = {
       }))
   }))
 
-  // ── build info item docs ──────────────────────────────────
+  
   const infoDocs = infoItems.map(i => ({
     id:       Number(i.id),
     category: i.category,
@@ -56,15 +56,14 @@ const iconMap = {
     body:     i.body
   }))
 
-  // ── wipe old data ─────────────────────────────────────────
-  await Region.deleteMany({})
+  
   await InfoItem.deleteMany({})
 
-  // ── insert fresh ──────────────────────────────────────────
+  
   await Region.insertMany(regionDocs)
   await InfoItem.insertMany(infoDocs)
 
-  // ── log results ───────────────────────────────────────────
+ 
   console.log(`✅ Seeded ${regionDocs.length} regions:`)
   regionDocs.forEach(r =>
     console.log(`   [${r.key}] ${r.name} — ${r.attractions.length} attractions`)
