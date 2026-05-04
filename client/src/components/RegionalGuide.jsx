@@ -58,7 +58,7 @@ export default function RegionalGuide() {
               regions.map((r) => (
                 <article
                   key={r.key}
-                  className={`rg__card fade-in${
+                  className={`rg__card${
                     active === r.key ? " active" : ""
                   }`}
                   style={{ "--rc": r.color }}

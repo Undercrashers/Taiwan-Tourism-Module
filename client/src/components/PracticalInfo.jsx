@@ -95,7 +95,7 @@ export default function PracticalInfo() {
                 </div>
 
               : 
-                <div key={item._id} className="pi__card fade-in">
+                <div key={item._id} className="pi__card">
                   <img
                     src={item.icon}
                     alt=""
