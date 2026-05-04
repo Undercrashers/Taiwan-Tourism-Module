@@ -1,0 +1,97 @@
+/* 3 cards — first row 2 cols, download spans or sits below */
+.ei__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.ei__grid > .ei__card:last-child {
+  grid-column: 1 / -1;
+}
+
+.ei__card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.ei__card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+  font-family: var(--font-heading);
+}
+
+.ei__card--emergency {
+  border-top: 4px solid var(--red);
+}
+
+.ei__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ei__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+
+.ei__list a {
+  color: var(--red);
+  transition: opacity 0.2s;
+}
+
+.ei__list a:hover {
+  opacity: 0.75;
+}
+
+.ei__tts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ei__tts-msg {
+  font-size: 0.82rem;
+  color: var(--gray);
+}
+
+.ei__emergency {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ei__emergency li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.ei__emergency strong {
+  font-size: 1.1rem;
+}
+
+.ei__badge {
+  background: #fee2e2;
+  color: var(--red);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .ei__grid {
+    grid-template-columns: 1fr;
+  }
+  .ei__grid > .ei__card:last-child {
+    grid-column: 1;
+  }
+}
