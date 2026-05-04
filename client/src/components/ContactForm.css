@@ -1,0 +1,117 @@
+
+.cf__form {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.cf__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+
+.cf__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cf__group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+
+.cf__group input,
+.cf__group textarea {
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: #fafaf9;
+  color: var(--dark);
+  transition: border-color 0.2s, background 0.2s;
+  resize: none; 
+}
+
+
+.cf__group input:focus,
+.cf__group textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  background: #fff;
+}
+
+.cf__group input[aria-invalid="true"],
+.cf__group textarea[aria-invalid="true"] {
+  border-color: var(--red);
+}
+
+
+.cf__error {
+  font-size: 0.82rem;
+  color: var(--red);
+  font-weight: 500;
+}
+
+
+.cf__submit {
+  align-self: flex-start; 
+  min-width: 140px;
+}
+
+.cf__submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cf__success {
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cf__success-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.cf__success h3 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.cf__success p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+
+@media (max-width: 760px) {
+  .cf__row {
+    grid-template-columns: 1fr; 
+  }
+
+  .cf__form {
+    padding: 24px;
+  }
+
+  .cf__submit {
+    align-self: stretch; 
+  }
+}
