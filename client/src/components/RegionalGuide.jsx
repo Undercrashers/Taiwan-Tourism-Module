@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./RegionalGuide.css";
 
+const API_BASE = import.meta.env.VITE_API_URL || "";
+
 export default function RegionalGuide() {
   const [regions, setRegions] = useState([]);
   const [active, setActive] = useState(null);
@@ -10,7 +12,7 @@ export default function RegionalGuide() {
 
   useEffect(() => {
     axios
-      .get("/api/regions")
+      .get(`${API_BASE}/api/regions`)
       .then((r) => {
         const normalized = (r.data ?? []).map((region) => ({
           ...region,

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./PracticalInfo.css";
 
+const API_BASE = import.meta.env.VITE_API_URL || "";
+
 const TABS = ["transportation", "accommodation", "shopping"];
 
 export default function PracticalInfo() {
@@ -17,7 +19,7 @@ export default function PracticalInfo() {
   }, []);
 
   useEffect(() => {
-    axios.get(`/api/info/${tab}`).then((r) => {
+    axios.get(`${API_BASE}/api/info/${tab}`).then((r) => {
       setItems(r.data);
       setOpenIdx(null);
     });
